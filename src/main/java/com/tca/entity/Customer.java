@@ -25,12 +25,12 @@ public class Customer extends User {
 		@Column(name="loyalty_points")
 		private Integer loyaltyPoints;
 		
-		@OneToMany(mappedBy="address",fetch=FetchType.EAGER)
+		@OneToMany(mappedBy="customer",fetch=FetchType.EAGER)
 		private List<Address> addresses;
 
 		private Cart cart;
          
-		@OneToMany(mappedBy="orders",fetch=FetchType.EAGER)
+		@OneToMany(mappedBy="customer",fetch=FetchType.EAGER)
 		private List<Order> orders;
 		
 		public Customer() {}

@@ -72,7 +72,6 @@ public class User {
 		this.role = role;
 		this.authProvider = authProvider;
 		this.providerUserId = providerUserId;
-		;
 		this.isVerified = isVerified;
 		this.isActive = isActive;
 	}

@@ -6,7 +6,7 @@ import jakarta.persistence.PrimaryKeyJoinColumn;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name="admin")
+@Table(name="admins")
 @PrimaryKeyJoinColumn(name = "user_id")
 public class Admin extends User {
 	@Column(name = "full_name", nullable = false, length = 100)
