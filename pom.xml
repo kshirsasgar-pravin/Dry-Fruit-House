@@ -70,18 +70,7 @@
 			</dependency>
 
 			<!-- Hibernate Validator -->
-			<dependency>
-				<groupId>org.hibernate.validator</groupId>
-				<artifactId>hibernate-validator</artifactId>
-				<version>9.0.0.Final</version>
-			</dependency>
-
-			<!-- Jakarta Validation API -->
-			<dependency>
-				<groupId>jakarta.validation</groupId>
-				<artifactId>jakarta.validation-api</artifactId>
-				<version>3.1.1</version>
-			</dependency>
+			
 
 			<!-- SLF4J Simple Logger -->
 			<dependency>
@@ -111,21 +100,6 @@
 		<finalName>DryFruitHouse</finalName>
 
 		<plugins>
-
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.13.0</version>
-				<configuration>
-					<release>21</release>
-				</configuration>
-			</plugin>
-
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-war-plugin</artifactId>
-				<version>3.4.0</version>
-			</plugin>
 
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>

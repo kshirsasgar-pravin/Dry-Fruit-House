@@ -34,8 +34,18 @@
 
 		<!-- Entity Classes -->
 
-		<!-- <mapping class="com.tca.entity.Customer"/> <mapping class="com.tca.entity.Product"/> 
-			<mapping class="com.tca.entity.Category"/> -->
+		<mapping class="com.tca.entity.User" />
+		<mapping class="com.tca.entity.Customer" />
+		<mapping class="com.tca.entity.Product" />
+		<mapping class="com.tca.entity.Category" />
+		<mapping class="com.tca.entity.Order" />
+		<mapping class="com.tca.entity.OrderItem" />
+		<mapping class="com.tca.entity.Cart" />
+		<mapping class="com.tca.entity.CartItem" />
+		<mapping class="com.tca.entity.Address" />
+		<mapping class="com.tca.entity.Admin" />
+		<mapping class="com.tca.entity.Payment"/>
+
 
 	</session-factory>
 

@@ -6,6 +6,7 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.PrimaryKeyJoinColumn;
 import jakarta.persistence.Table;
 
@@ -14,102 +15,102 @@ import jakarta.persistence.Table;
 @PrimaryKeyJoinColumn(name = "user_id")
 public class Customer extends User {
 	@Column(name = "full_name", nullable = false, length = 100)
-    private String fullName;
-	
-	 @Column(name = "phone", nullable = false, length = 10)
-	    private String phone;
-	 
-	    @Column(name = "profile_image")
-	    private String profileImage;
-	
-		@Column(name="loyalty_points")
-		private Integer loyaltyPoints;
-		
-		@OneToMany(mappedBy="customer",fetch=FetchType.EAGER)
-		private List<Address> addresses;
+	private String fullName;
 
-		private Cart cart;
-         
-		@OneToMany(mappedBy="customer",fetch=FetchType.EAGER)
-		private List<Order> orders;
-		
-		public Customer() {}
+	@Column(name = "phone", nullable = false, length = 10)
+	private String phone;
 
-		public Customer(String fullName, String phone, String profileImage, Integer loyaltyPoints,
-				List<Address> addresses, Cart cart, List<Order> orders) {
-			super();
-			this.fullName = fullName;
-			this.phone = phone;
-			this.profileImage = profileImage;
-			this.loyaltyPoints = loyaltyPoints;
-			this.addresses = addresses;
-			this.cart = cart;
-			this.orders = orders;
-		}
+	@Column(name = "profile_image")
+	private String profileImage;
 
-		public String getFullName() {
-			return fullName;
-		}
+	@Column(name = "loyalty_points")
+	private Integer loyaltyPoints;
 
-		public void setFullName(String fullName) {
-			this.fullName = fullName;
-		}
+	@OneToMany(mappedBy = "customer", fetch = FetchType.LAZY)
+	private List<Address> addresses;
+    
+	@OneToOne(mappedBy="customer",fetch=FetchType.LAZY)
+	private Cart cart;
 
-		public String getPhone() {
-			return phone;
-		}
+	@OneToMany(mappedBy = "customer", fetch = FetchType.LAZY)
+	private List<Order> orders;
 
-		public void setPhone(String phone) {
-			this.phone = phone;
-		}
+	public Customer() {
+	}
 
-		public String getProfileImage() {
-			return profileImage;
-		}
+	public Customer(String fullName, String phone, String profileImage, Integer loyaltyPoints, List<Address> addresses,
+			Cart cart, List<Order> orders) {
+		super();
+		this.fullName = fullName;
+		this.phone = phone;
+		this.profileImage = profileImage;
+		this.loyaltyPoints = loyaltyPoints;
+		this.addresses = addresses;
+		this.cart = cart;
+		this.orders = orders;
+	}
 
-		public void setProfileImage(String profileImage) {
-			this.profileImage = profileImage;
-		}
+	public String getFullName() {
+		return fullName;
+	}
 
-		public Integer getLoyaltyPoints() {
-			return loyaltyPoints;
-		}
+	public void setFullName(String fullName) {
+		this.fullName = fullName;
+	}
 
-		public void setLoyaltyPoints(Integer loyaltyPoints) {
-			this.loyaltyPoints = loyaltyPoints;
-		}
+	public String getPhone() {
+		return phone;
+	}
 
-		public List<Address> getAddresses() {
-			return addresses;
-		}
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
 
-		public void setAddresses(List<Address> addresses) {
-			this.addresses = addresses;
-		}
+	public String getProfileImage() {
+		return profileImage;
+	}
 
-		public Cart getCart() {
-			return cart;
-		}
+	public void setProfileImage(String profileImage) {
+		this.profileImage = profileImage;
+	}
 
-		public void setCart(Cart cart) {
-			this.cart = cart;
-		}
+	public Integer getLoyaltyPoints() {
+		return loyaltyPoints;
+	}
 
-		public List<Order> getOrders() {
-			return orders;
-		}
+	public void setLoyaltyPoints(Integer loyaltyPoints) {
+		this.loyaltyPoints = loyaltyPoints;
+	}
 
-		public void setOrders(List<Order> orders) {
-			this.orders = orders;
-		}
+	public List<Address> getAddresses() {
+		return addresses;
+	}
 
-		@Override
-		public String toString() {
-			return "Customer [fullName=" + fullName + ", phone=" + phone + ", profileImage=" + profileImage
-					+ ", loyaltyPoints=" + loyaltyPoints + ", addresses=" + addresses + ", cart=" + cart + ", orders="
-					+ orders + "]";
-		}
-		
-		
-		
+	public void setAddresses(List<Address> addresses) {
+		this.addresses = addresses;
+	}
+
+	public Cart getCart() {
+		return cart;
+	}
+
+	public void setCart(Cart cart) {
+		this.cart = cart;
+	}
+
+	public List<Order> getOrders() {
+		return orders;
+	}
+
+	public void setOrders(List<Order> orders) {
+		this.orders = orders;
+	}
+
+	@Override
+	public String toString() {
+		return "Customer [fullName=" + fullName + ", phone=" + phone + ", profileImage=" + profileImage
+				+ ", loyaltyPoints=" + loyaltyPoints + ", addresses=" + addresses + ", cart=" + cart + ", orders="
+				+ orders + "]";
+	}
+
 }

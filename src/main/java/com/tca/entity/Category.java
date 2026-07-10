@@ -5,8 +5,6 @@ import java.util.List;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
-
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -21,7 +19,7 @@ import jakarta.persistence.Table;
 public class Category {
      
 	@Id
-	@Column(name="category_id")
+	@Column(name="category_id",nullable=false)
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long categoryId;
 	
@@ -130,8 +128,6 @@ public class Category {
 				+ ", categoryImage=" + categoryImage + ", isActive=" + isActive + ", createdAt=" + createdAt
 				+ ", updatedAt=" + updatedAt + "]";
 	}
-	
-	
 	
 	
 }

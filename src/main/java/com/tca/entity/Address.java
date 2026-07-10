@@ -25,6 +25,7 @@ public class Address {
        
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name="address_id")
 	private Long addressId;
 	
 	@Column(name="address_type",nullable=false)
@@ -63,11 +64,11 @@ public class Address {
     private LocalDateTime createdAt;
     
 	@UpdateTimestamp
-	@Column(name="updated_at",updatable=false)
+	@Column(name="updated_at",nullable=false)
 	private LocalDateTime updatedAt;
 	
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="customer_id")
+	@JoinColumn(name="customer_id",nullable=false)
 	private Customer customer;
     
     	public Address() {}

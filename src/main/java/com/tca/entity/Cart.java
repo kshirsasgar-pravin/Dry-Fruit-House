@@ -6,7 +6,6 @@ import java.util.List;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -27,12 +26,12 @@ public class Cart {
 	@Column(name="cart_id")
 	private Long cartId;
 	
-	@OneToOne(cascade=CascadeType.ALL)
+	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="customer_id",nullable=false)
 	private Customer customer;
 	
 	@OneToMany(mappedBy="cart",fetch=FetchType.LAZY)
-	private List<CartItem> cartItem;
+	private List<CartItem> cartItems;
 	
 	@CreationTimestamp
 	@Column(name="created_at",nullable=false,updatable=false)
@@ -44,10 +43,10 @@ public class Cart {
 	
 	public Cart() {}
 
-	public Cart(Customer customer, List<CartItem> cartItem, LocalDateTime createdAt, LocalDateTime updatedAt) {
+	public Cart(Customer customer, List<CartItem> cartItems, LocalDateTime createdAt, LocalDateTime updatedAt) {
 		super();
 		this.customer = customer;
-		this.cartItem = cartItem;
+		this.cartItems = cartItems;
 		this.createdAt = createdAt;
 		this.updatedAt = updatedAt;
 	}
@@ -60,12 +59,12 @@ public class Cart {
 		this.customer = customer;
 	}
 
-	public List<CartItem> getCartItem() {
-		return cartItem;
+	public List<CartItem> getCartItems() {
+		return cartItems;
 	}
 
-	public void setCartItem(List<CartItem> cartItem) {
-		this.cartItem = cartItem;
+	public void setCartItems(List<CartItem> cartItems) {
+		this.cartItems = cartItems;
 	}
 
 	public LocalDateTime getCreatedAt() {
