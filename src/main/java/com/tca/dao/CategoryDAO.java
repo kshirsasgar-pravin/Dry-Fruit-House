@@ -1,4 +1,4 @@
-package com.tca.dao.impl;
+package com.tca.dao;
 
 import java.util.List;
 
