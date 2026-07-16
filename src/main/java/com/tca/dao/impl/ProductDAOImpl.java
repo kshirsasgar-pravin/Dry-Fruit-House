@@ -70,7 +70,7 @@ public class ProductDAOImpl implements ProductDAO {
 			if(transaction != null) {
 				transaction.rollback();
 			}
-		}
+			he.printStackTrace();		}
 		return false;
 	}
 

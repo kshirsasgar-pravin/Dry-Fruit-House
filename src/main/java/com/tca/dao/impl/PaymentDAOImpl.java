@@ -2,56 +2,261 @@ package com.tca.dao.impl;
 
 import java.util.List;
 
+import org.hibernate.HibernateException;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+import org.hibernate.query.Query;
+
 import com.tca.dao.PaymentDAO;
 import com.tca.entity.Payment;
+import com.tca.util.HibernateUtil;
 
 public class PaymentDAOImpl implements PaymentDAO {
 
 	@Override
 	public boolean savePayment(Payment payment) {
-		// TODO Auto-generated method stub
+		Transaction transaction = null;
+	    try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+	    	if (payment == null) {
+	    	    return false;
+	    	}
+	      transaction = session.beginTransaction();
+
+	       session.persist(payment);
+
+	      transaction.commit();
+	      return true;
+
+	    } catch (HibernateException e) {
+	      if (transaction != null)        
+	    	  {
+	    	     transaction.rollback();
+	    	  }
+	      e.printStackTrace();
+	      
+	    }
 		return false;
 	}
 
 	@Override
 	public boolean updatePayment(Payment payment) {
-		// TODO Auto-generated method stub
+		if (payment == null) {
+			return false;
+		}
+
+		Transaction transaction = null;
+
+		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+
+			transaction = session.beginTransaction();
+
+			session.merge(payment);
+
+			transaction.commit();
+
+			return true;
+
+		} catch (HibernateException he) {
+
+			if (transaction != null) {
+				transaction.rollback();
+			}
+
+			he.printStackTrace();
+		}
 		return false;
 	}
 
 	@Override
 	public boolean deletePayment(Long paymentId) {
-		// TODO Auto-generated method stub
+		Transaction transaction = null;
+
+		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+
+			transaction = session.beginTransaction();
+
+			Payment payment = session.get(Payment.class, paymentId);
+
+			if (payment == null) {
+				return false;
+			}
+
+			session.remove(payment);
+
+			transaction.commit();
+
+			return true;
+
+		} catch (HibernateException he) {
+
+			if (transaction != null) {
+				transaction.rollback();
+			}
+
+			he.printStackTrace();
+		}
+
 		return false;
 	}
 
 	@Override
 	public Payment getPaymentById(Long paymentId) {
-		// TODO Auto-generated method stub
+
+		Transaction transaction = null;
+
+		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+
+			transaction = session.beginTransaction();
+
+			Payment payment = session.get(Payment.class, paymentId);
+
+			transaction.commit();
+
+			return payment;
+
+		} catch (HibernateException he) {
+
+			if (transaction != null) {
+				transaction.rollback();
+			}
+
+			he.printStackTrace();
+		}
 		return null;
 	}
 
 	@Override
 	public Payment getPaymentByOrderId(Long orderId) {
-		// TODO Auto-generated method stub
+		Transaction transaction = null;
+
+		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+
+			transaction = session.beginTransaction();
+
+			String hql = """
+					FROM Payment p
+					WHERE p.order.orderId = :orderId
+					""";
+
+			Query<Payment> query = session.createQuery(hql, Payment.class);
+
+			query.setParameter("orderId", orderId);
+
+			Payment payment = query.uniqueResult();
+
+			transaction.commit();
+
+			return payment;
+
+		} catch (HibernateException he) {
+
+			if (transaction != null) {
+				transaction.rollback();
+			}
+
+			he.printStackTrace();
+		}
+
 		return null;
 	}
 
 	@Override
 	public Payment getPaymentByTransactionId(String transactionId) {
-		// TODO Auto-generated method stub
+		Transaction transaction = null;
+
+		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+
+			transaction = session.beginTransaction();
+
+			String hql = """
+					FROM Payment p
+					WHERE p.transactionId = :transactionId
+					""";
+
+			Query<Payment> query = session.createQuery(hql, Payment.class);
+
+			query.setParameter("transactionId", transactionId);
+
+			Payment payment = query.uniqueResult();
+
+			transaction.commit();
+
+			return payment;
+
+		} catch (HibernateException he) {
+
+			if (transaction != null) {
+				transaction.rollback();
+			}
+
+			he.printStackTrace();
+		}
+
 		return null;
 	}
 
 	@Override
 	public List<Payment> getAllPayments() {
-		// TODO Auto-generated method stub
+
+		Transaction transaction = null;
+
+		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+
+			transaction = session.beginTransaction();
+
+			String hql = "FROM Payment";
+
+			Query<Payment> query = session.createQuery(hql, Payment.class);
+
+			List<Payment> paymentList = query.getResultList();
+
+			transaction.commit();
+
+			return paymentList;
+
+		} catch (HibernateException he) {
+
+			if (transaction != null) {
+				transaction.rollback();
+			}
+
+			he.printStackTrace();
+		}
+
 		return null;
 	}
 
 	@Override
 	public List<Payment> getPaymentsByCustomerId(Long customerId) {
-		// TODO Auto-generated method stub
+		Transaction transaction = null;
+
+		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+
+			transaction = session.beginTransaction();
+
+			String hql = """
+					FROM Payment p
+					WHERE p.customer.customerId = :customerId
+					""";
+
+			Query<Payment> query = session.createQuery(hql, Payment.class);
+
+			query.setParameter("customerId", customerId);
+
+			List<Payment> paymentList = query.getResultList();
+
+			transaction.commit();
+
+			return paymentList;
+
+		} catch (HibernateException he) {
+
+			if (transaction != null) {
+				transaction.rollback();
+			}
+
+			he.printStackTrace();
+		}
 		return null;
 	}
 

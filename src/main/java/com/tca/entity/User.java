@@ -37,7 +37,7 @@ public class User {
 
 	@Enumerated(EnumType.STRING)
 	@Column(name = "user_role", nullable = false)
-	private UserRole role;
+	private UserRole userRole;
 
 	@Enumerated(EnumType.STRING)
 	@Column(name = "auth_provider", nullable = false)
@@ -63,13 +63,13 @@ public class User {
 	public User() {
 	}
 
-	public User(String email, String password, UserRole role, AuthProvider authProvider, String providerUserId,
+	public User(String email, String password, UserRole userRole, AuthProvider authProvider, String providerUserId,
 			Boolean isVerified, Boolean isActive) {
 
 		this.email = email;
 		this.password = password;
 
-		this.role = role;
+		this.userRole = userRole;
 		this.authProvider = authProvider;
 		this.providerUserId = providerUserId;
 		this.isVerified = isVerified;
@@ -100,12 +100,12 @@ public class User {
 		this.password = password;
 	}
 
-	public UserRole getRole() {
-		return role;
+	public UserRole getUserRole() {
+		return userRole;
 	}
 
-	public void setRole(UserRole role) {
-		this.role = role;
+	public void setUserRole(UserRole userRole) {
+		this.userRole = userRole;
 	}
 
 	public AuthProvider getAuthProvider() {
@@ -152,7 +152,7 @@ public class User {
 	public String toString() {
 		return "User [userId=" + userId +
 				", email=" + email +
-				", role=" + role + 
+				", userRole=" + userRole + 
 				", authProvider=" + authProvider + 
 				", isVerified=" + isVerified +
 				", isActive="+ isActive + "]";

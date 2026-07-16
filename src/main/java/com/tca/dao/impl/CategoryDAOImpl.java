@@ -26,10 +26,14 @@ public class CategoryDAOImpl implements CategoryDAO {
 	      return true;
 
 	    } catch (HibernateException e) {
-	      if (transaction != null)        transaction.rollback();
+	      if (transaction != null)        
+	    	  {
+	    	     transaction.rollback();
+	    	  }
 	      e.printStackTrace();
-	      return false;
+	      
 	    }
+	    return false;
 	}
 
 	@Override
