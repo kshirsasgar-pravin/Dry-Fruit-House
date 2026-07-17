@@ -35,6 +35,9 @@ public class User {
 	@Column(name = "password")
 	private String password;
 
+	@Column(name="phone")
+	private String phone;
+	
 	@Enumerated(EnumType.STRING)
 	@Column(name = "user_role", nullable = false)
 	private UserRole userRole;
@@ -63,12 +66,12 @@ public class User {
 	public User() {
 	}
 
-	public User(String email, String password, UserRole userRole, AuthProvider authProvider, String providerUserId,
+	public User(String email, String password, String phone, UserRole userRole, AuthProvider authProvider, String providerUserId,
 			Boolean isVerified, Boolean isActive) {
 
 		this.email = email;
 		this.password = password;
-
+        this.phone=phone;
 		this.userRole = userRole;
 		this.authProvider = authProvider;
 		this.providerUserId = providerUserId;
@@ -90,6 +93,16 @@ public class User {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	
+	
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
 	}
 
 	public String getPassword() {
@@ -152,7 +165,8 @@ public class User {
 	public String toString() {
 		return "User [userId=" + userId +
 				", email=" + email +
-				", userRole=" + userRole + 
+				", userRole=" + userRole +
+				", phone="+ phone +
 				", authProvider=" + authProvider + 
 				", isVerified=" + isVerified +
 				", isActive="+ isActive + "]";

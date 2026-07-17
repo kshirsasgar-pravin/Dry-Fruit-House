@@ -10,9 +10,14 @@ public class App {
 		session = HibernateUtil.getSessionFactory().openSession();
         System.out.println("Hibernate connectted sucessfully");
         System.out.println("Session opened successfully");
+        CategoryDAOTest categoryTest = new CategoryDAOTest();
+        categoryTest.saveCategoryTest();
+        categoryTest.updateCategoryTest(2L );
+        categoryTest.getCategoryById(3L);
+        categoryTest.getCategoryByName("Primum Dry Fruits");
+        categoryTest.deleteCategoryTest(1L);
         
         session.close();
-        
         System.out.println("Session close successfully");
         HibernateUtil.shutdown();
 	}
