@@ -5,20 +5,66 @@ import org.hibernate.Session;
 import com.tca.util.HibernateUtil;
 
 public class App {
+
 	public static void main(String[] args) {
-		Session session = null;
-		session = HibernateUtil.getSessionFactory().openSession();
-        System.out.println("Hibernate connectted sucessfully");
-        System.out.println("Session opened successfully");
-        CategoryDAOTest categoryTest = new CategoryDAOTest();
-        categoryTest.saveCategoryTest();
-        categoryTest.updateCategoryTest(2L );
-        categoryTest.getCategoryById(3L);
-        categoryTest.getCategoryByName("Primum Dry Fruits");
-        categoryTest.deleteCategoryTest(1L);
-        
-        session.close();
-        System.out.println("Session close successfully");
-        HibernateUtil.shutdown();
+
+		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+
+			System.out.println("========================================");
+			System.out.println(" Hibernate Connected Successfully");
+			System.out.println("========================================");
+
+			// ==============================================
+			// CATEGORY DAO TEST
+			// ==============================================
+
+			// CategoryDAOTest categoryTest = new CategoryDAOTest();
+			// categoryTest.testCategory();
+
+			// ==============================================
+			// PRODUCT DAO TEST
+			// ==============================================
+
+			// ProductDAOTest productTest = new ProductDAOTest();
+			// productTest.testProduct();
+
+			// USER DAO TEST
+
+			// UserDAOTest userTest = new UserDAOTest();
+			// userTest.testUser();
+
+			// CUSTOMER DAO TEST
+
+			CustomerDAOTest customerTest = new CustomerDAOTest();
+			customerTest.testCustomer();
+
+			// ADDRESS DAO TEST
+
+			AddressDAOTest addressTest = new AddressDAOTest();
+			addressTest.testAddress();
+
+//			 CART DAO TEST
+
+			CartDAOTest cartTest = new CartDAOTest();
+			cartTest.testCart();
+
+			// ORDER DAO TEST
+
+			OrderDAOTest orderTest = new OrderDAOTest();
+			orderTest.testOrder();
+
+			// PAYMENT DAO TEST
+
+			PaymentDAOTest paymentTest = new PaymentDAOTest();
+			paymentTest.testPayment();
+
+			HibernateUtil.shutdown();
+			System.out.println("SessionFactory Closed Successfully.");
+
+		} catch (Exception e) {
+
+			e.printStackTrace();
+
+		}
 	}
 }

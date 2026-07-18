@@ -66,6 +66,12 @@ public class Payment {
 		this.order = order;
 	}
 
+	
+	
+	public Long getPaymentId() {
+		return paymentId;
+	}
+
 	public PaymentMode getPaymentMode() {
 		return paymentMode;
 	}

@@ -17,9 +17,6 @@ public class Customer extends User {
 	@Column(name = "full_name", nullable = false, length = 100)
 	private String fullName;
 
-	@Column(name = "phone", nullable = false, length = 10)
-	private String phone;
-
 	@Column(name = "profile_image")
 	private String profileImage;
 
@@ -38,11 +35,10 @@ public class Customer extends User {
 	public Customer() {
 	}
 
-	public Customer(String fullName, String phone, String profileImage, Integer loyaltyPoints, List<Address> addresses,
+	public Customer(String fullName, String profileImage, Integer loyaltyPoints, List<Address> addresses,
 			Cart cart, List<Order> orders) {
 		super();
 		this.fullName = fullName;
-		this.phone = phone;
 		this.profileImage = profileImage;
 		this.loyaltyPoints = loyaltyPoints;
 		this.addresses = addresses;
@@ -58,13 +54,8 @@ public class Customer extends User {
 		this.fullName = fullName;
 	}
 
-	public String getPhone() {
-		return phone;
-	}
 
-	public void setPhone(String phone) {
-		this.phone = phone;
-	}
+
 
 	public String getProfileImage() {
 		return profileImage;
@@ -108,9 +99,8 @@ public class Customer extends User {
 
 	@Override
 	public String toString() {
-		return "Customer [fullName=" + fullName + ", phone=" + phone + ", profileImage=" + profileImage
-				+ ", loyaltyPoints=" + loyaltyPoints + ", addresses=" + addresses + ", cart=" + cart + ", orders="
-				+ orders + "]";
+		return "Customer [fullName=" + fullName + ", profileImage=" + profileImage
+				+ ", loyaltyPoints=" + loyaltyPoints + ", cart=" + cart +"]";
 	}
 
 }

@@ -119,13 +119,13 @@ public class AddressDAOImpl implements AddressDAO {
 	}
 
 	@Override
-	public List<Address> getAddressesByCustomerId(Long customerId) {
+	public List<Address> getAddressesByCustomerId(Long userId) {
 		Transaction transaction = null;
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 			transaction = session.beginTransaction();
-			String hql = "FROM Address WHERE customer.customerId = :customerId";
+			String hql = "FROM Address WHERE customer.userId = :userId";
 			Query<Address> query = session.createQuery(hql, Address.class);
-			query.setParameter("customerId", customerId);
+			query.setParameter("userId", userId);
 			List<Address> addressList = query.getResultList();
 			transaction.commit();
 			return addressList;

@@ -110,7 +110,7 @@ public class OrderDAOImpl implements OrderDAO {
 	}
 
 	@Override
-	public boolean cancelOrder(Long customerId, Long orderId) {
+	public boolean cancelOrder(Long userId, Long orderId) {
 
 		Transaction transaction = null;
 
@@ -121,13 +121,13 @@ public class OrderDAOImpl implements OrderDAO {
 			String hql = """
 					FROM Order o
 					WHERE o.orderId = :orderId
-					AND o.customer.customerId = :customerId
+					AND o.customer.userId = :userId
 					""";
 
 			Query<Order> query = session.createQuery(hql, Order.class);
 
 			query.setParameter("orderId", orderId);
-			query.setParameter("customerId", customerId);
+			query.setParameter("userId", userId);
 
 			Order order = query.uniqueResult();
 
@@ -219,7 +219,7 @@ public class OrderDAOImpl implements OrderDAO {
 	}
 
 	@Override
-	public List<Order> getOrdersByCustomerId(Long customerId) {
+	public List<Order> getOrdersByCustomerId(Long userId) {
 
 		Transaction transaction = null;
 
@@ -229,12 +229,12 @@ public class OrderDAOImpl implements OrderDAO {
 
 			String hql = """
 					FROM Order o
-					WHERE o.customer.customerId = :customerId
+					WHERE o.customer.userId = :userId
 					""";
 
 			Query<Order> query = session.createQuery(hql, Order.class);
 
-			query.setParameter("customerId", customerId);
+			query.setParameter("userId", userId);
 
 			List<Order> orderList = query.getResultList();
 

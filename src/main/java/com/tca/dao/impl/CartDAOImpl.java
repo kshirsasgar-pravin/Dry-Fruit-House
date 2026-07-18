@@ -94,13 +94,13 @@ public class CartDAOImpl implements CartDAO {
 	}
 
 	@Override
-	public Cart getCartByCustomerId(Long customerId) {
+	public Cart getCartByCustomerId(Long userId) {
 		Transaction transaction = null;
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 			transaction = session.beginTransaction();
-			String hql = "FROM Cart WHERE customer.customerId = :customerId";
+			String hql = "FROM Cart WHERE customer.userId = :userId";
             Query<Cart> query = session.createQuery(hql,Cart.class);
-            query.setParameter("customerId", customerId);
+            query.setParameter("userId", userId);
 			Cart cart = query.uniqueResult();
             transaction.commit();
             return cart;

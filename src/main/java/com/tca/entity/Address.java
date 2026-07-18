@@ -73,11 +73,11 @@ public class Address {
     
     	public Address() {}
 
-		public Address(AddressType addresstype, String receiverName, String city, String addressLine1,
+		public Address(AddressType addressType, String receiverName, String city, String addressLine1,
 				String addressLine2, String phone, String state, String country, String postalCode, Boolean isDefault,
 				Customer customer) {
 			super();
-			this.addressType = addresstype;
+			this.addressType = addressType;
 			this.receiverName = receiverName;
 			this.city = city;
 			this.addressLine1 = addressLine1;
@@ -90,11 +90,15 @@ public class Address {
 			this.customer = customer;
 		}
 
+		public Long getAddressId() {
+			return addressId;
+		}
+
 		public AddressType getAddressType() {
 			return addressType;
 		}
 
-		public void setAddresstype(AddressType addressType) {
+		public void setAddressType(AddressType addressType) {
 			this.addressType = addressType;
 		}
 

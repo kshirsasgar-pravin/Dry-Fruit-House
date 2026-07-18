@@ -51,6 +51,12 @@ public class Cart {
 		this.updatedAt = updatedAt;
 	}
 
+	
+	
+	public Long getCartId() {
+		return cartId;
+	}
+
 	public Customer getCustomer() {
 		return customer;
 	}
@@ -82,11 +88,12 @@ public class Cart {
 	public void setUpdatedAt(LocalDateTime updatedAt) {
 		this.updatedAt = updatedAt;
 	}
-
 	@Override
 	public String toString() {
-		return "Cart [cartId=" + cartId + ", customer=" + customer + ", createdAt=" + createdAt + ", updatedAt="
-				+ updatedAt + "]";
+	    return "Cart [cartId=" + cartId
+	            + ", createdAt=" + createdAt
+	            + ", updatedAt=" + updatedAt
+	            + "]";
 	}
 	
 	

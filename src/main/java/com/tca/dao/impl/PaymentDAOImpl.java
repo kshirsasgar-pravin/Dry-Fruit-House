@@ -227,7 +227,7 @@ public class PaymentDAOImpl implements PaymentDAO {
 	}
 
 	@Override
-	public List<Payment> getPaymentsByCustomerId(Long customerId) {
+	public List<Payment> getPaymentsByCustomerId(Long userId) {
 		Transaction transaction = null;
 
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
@@ -236,12 +236,12 @@ public class PaymentDAOImpl implements PaymentDAO {
 
 			String hql = """
 					FROM Payment p
-					WHERE p.customer.customerId = :customerId
+					WHERE p.order.customer.userId = :userId
 					""";
 
 			Query<Payment> query = session.createQuery(hql, Payment.class);
 
-			query.setParameter("customerId", customerId);
+			query.setParameter("userId", userId);
 
 			List<Payment> paymentList = query.getResultList();
 
