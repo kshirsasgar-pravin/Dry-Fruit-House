@@ -119,18 +119,41 @@ public class AddressDAOImpl implements AddressDAO {
 	}
 
 	@Override
-	public List<Address> getAddressesByCustomerId(Long userId) {
+	public List<Address> getAddressesByUserId(Long userId) {
+	    Transaction transaction = null;
+	    try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+	        transaction = session.beginTransaction();
+	        String hql = "FROM Address WHERE user.userId = :userId";
+	        Query<Address> query = session.createQuery(hql, Address.class);
+	        query.setParameter("userId", userId);
+	        List<Address> addressList = query.getResultList();
+	        transaction.commit();
+	        return addressList;
+	    } catch (HibernateException he) {
+	        if (transaction != null) {
+	            transaction.rollback();
+	        }
+	        he.printStackTrace();
+	    }
+	    return null;
+	}
+
+	@Override
+	public Address getDefaultAddressById(Long addressId) {
 		Transaction transaction = null;
-		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+		try(Session session = HibernateUtil.getSessionFactory().openSession()){
 			transaction = session.beginTransaction();
-			String hql = "FROM Address WHERE customer.userId = :userId";
-			Query<Address> query = session.createQuery(hql, Address.class);
-			query.setParameter("userId", userId);
-			List<Address> addressList = query.getResultList();
+			String hql = "FROM Address WHERE addressId =:addressId AND isDefauld =:isDefauld";
+			Query<Address> query = session.createQuery(hql,Address.class);
+			query.setParameter("addressId", addressId);
+			query.setParameter("isDefault", true);
+			Address address = query.uniqueResult();
 			transaction.commit();
-			return addressList;
-		} catch (HibernateException he) {
-			if (transaction != null) {
+			return address;
+			
+		}
+		catch(HibernateException he) {
+			if(transaction != null) {
 				transaction.rollback();
 			}
 			he.printStackTrace();

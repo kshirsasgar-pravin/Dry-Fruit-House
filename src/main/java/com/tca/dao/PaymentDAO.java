@@ -1,23 +1,23 @@
 package com.tca.dao;
 
 import java.util.List;
-
 import com.tca.entity.Payment;
 
 public interface PaymentDAO {
-	boolean savePayment(Payment payment);
 
-	boolean updatePayment(Payment payment);
+    boolean savePayment(Payment payment);
 
-	boolean deletePayment(Long paymentId);
+    boolean updatePayment(Payment payment);
 
-	Payment getPaymentById(Long paymentId);
+    boolean deletePayment(Long paymentId);
 
-	Payment getPaymentByOrderId(Long orderId);
+    Payment getPaymentById(Long paymentId);
 
-	Payment getPaymentByTransactionId(String transactionId);
+    Payment getPaymentByOrderId(Long orderId);
 
-	List<Payment> getAllPayments();
+    Payment getPaymentByTransactionId(String transactionId);
 
-	List<Payment> getPaymentsByCustomerId(Long customerId);
+    List<Payment> getAllPayments();
+
+    List<Payment> getPaymentsByUserId(Long userId);
 }

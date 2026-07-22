@@ -18,9 +18,9 @@
 
 		<property name="hibernate.connection.password">root</property>
 
-		<!-- SQL Dialect -->
+		<!-- SQL Dialect (Auto-detected in Hibernate 6+) -->
 
-		<property name="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</property>
+		<!-- <property name="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</property> -->
 
 		<!-- SQL Output -->
 
@@ -35,7 +35,6 @@
 		<!-- Entity Classes -->
 
 		<mapping class="com.tca.entity.User" />
-		<mapping class="com.tca.entity.Customer" />
 		<mapping class="com.tca.entity.Product" />
 		<mapping class="com.tca.entity.Category" />
 		<mapping class="com.tca.entity.Order" />
@@ -45,7 +44,6 @@
 		<mapping class="com.tca.entity.Address" />
 		<mapping class="com.tca.entity.Admin" />
 		<mapping class="com.tca.entity.Payment"/>
-
 
 	</session-factory>
 

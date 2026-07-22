@@ -3,9 +3,9 @@ package com.tca.test;
 import java.util.List;
 
 import com.tca.dao.impl.AddressDAOImpl;
-import com.tca.dao.impl.CustomerDAOImpl;
+import com.tca.dao.impl.UserDAOImpl;
 import com.tca.entity.Address;
-import com.tca.entity.Customer;
+import com.tca.entity.User;
 import com.tca.enums.AddressType;
 
 public class AddressDAOTest {
@@ -13,13 +13,13 @@ public class AddressDAOTest {
 	public void testAddress() {
 
 		AddressDAOImpl addressDAO = new AddressDAOImpl();
-		CustomerDAOImpl customerDAO = new CustomerDAOImpl();
+		UserDAOImpl userDAO = new UserDAOImpl();
 
-		// Fetch existing customer
-		Customer customer = customerDAO.getCustomerById(1L);
+		// Fetch existing user
+		User user = userDAO.getUserById(1L);
 
-		if (customer == null) {
-			System.out.println("Customer not found. Please create a customer first.");
+		if (user == null) {
+			System.out.println("User not found. Please create a user first.");
 			return;
 		}
 
@@ -39,7 +39,7 @@ public class AddressDAOTest {
 		address.setCountry("India");
 		address.setPostalCode("411033");
 		address.setIsDefault(true);
-		address.setCustomer(customer);
+		address.setUser(user);
 
 		if (addressDAO.saveAddress(address)) {
 			System.out.println("Address saved successfully.");
@@ -87,18 +87,18 @@ public class AddressDAOTest {
 			System.out.println("No addresses found.");
 		}
 
-		// ================= GET ADDRESSES BY CUSTOMER ID =================
+		// ================= GET ADDRESSES BY USER ID =================
 
-		System.out.println("\n========== GET ADDRESSES BY CUSTOMER ID ==========");
+		System.out.println("\n========== GET ADDRESSES BY USER ID ==========");
 
-		List<Address> customerAddresses = addressDAO.getAddressesByCustomerId(customer.getUserId());
+		List<Address> userAddresses = addressDAO.getAddressesByUserId(user.getUserId());
 
-		if (customerAddresses != null && !customerAddresses.isEmpty()) {
-			for (Address a : customerAddresses) {
+		if (userAddresses != null && !userAddresses.isEmpty()) {
+			for (Address a : userAddresses) {
 				System.out.println(a);
 			}
 		} else {
-			System.out.println("No addresses found for this customer.");
+			System.out.println("No addresses found for this user.");
 		}
 
 		// ================= DELETE ADDRESS =================

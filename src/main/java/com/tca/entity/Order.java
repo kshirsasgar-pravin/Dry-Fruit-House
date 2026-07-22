@@ -39,8 +39,8 @@ public class Order {
 	private OrderStatus orderStatus;
     
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name = "customer_id", nullable = false)
-	private Customer customer;
+	@JoinColumn(name = "user_id", nullable = false)
+	private User user;
 	
 	@OneToOne(mappedBy = "order", fetch = FetchType.LAZY)
 	private Payment payment;
@@ -55,12 +55,11 @@ public class Order {
     public Order() {}
 
 	
-	public Order(BigDecimal totalAmount, OrderStatus orderStatus, Customer customer) {
+	public Order(BigDecimal totalAmount, OrderStatus orderStatus, User user) {
 		this.totalAmount = totalAmount;
 		this.orderStatus = orderStatus;
-		this.customer = customer;
+		this.user = user;
 	}
-
 
 	public Long getOrderId() {
 		return orderId;
@@ -86,12 +85,12 @@ public class Order {
 		this.orderStatus = orderStatus;
 	}
 
-	public Customer getCustomer() {
-		return customer;
+	public User getUser() {
+		return user;
 	}
 
-	public void setCustomer(Customer customer) {
-		this.customer = customer;
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 	public List<OrderItem> getOrderItems() {

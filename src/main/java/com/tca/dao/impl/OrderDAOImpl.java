@@ -111,55 +111,40 @@ public class OrderDAOImpl implements OrderDAO {
 
 	@Override
 	public boolean cancelOrder(Long userId, Long orderId) {
+	    Transaction transaction = null;
+	    try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+	        transaction = session.beginTransaction();
+	        String hql = """
+	                FROM Order o
+	                WHERE o.orderId = :orderId
+	                AND o.user.userId = :userId
+	                """;
+	        Query<Order> query = session.createQuery(hql, Order.class);
+	        query.setParameter("orderId", orderId);
+	        query.setParameter("userId", userId);
 
-		Transaction transaction = null;
+	        Order order = query.uniqueResult();
+	        if (order == null) {
+	            return false;
+	        }
 
-		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+	        if (order.getOrderStatus() == OrderStatus.DELIVERED
+	                || order.getOrderStatus() == OrderStatus.CANCELLED) {
+	            return false;
+	        }
 
-			transaction = session.beginTransaction();
-
-			String hql = """
-					FROM Order o
-					WHERE o.orderId = :orderId
-					AND o.customer.userId = :userId
-					""";
-
-			Query<Order> query = session.createQuery(hql, Order.class);
-
-			query.setParameter("orderId", orderId);
-			query.setParameter("userId", userId);
-
-			Order order = query.uniqueResult();
-
-			if (order == null) {
-				return false;
-			}
-
-			if (order.getOrderStatus() == OrderStatus.DELIVERED
-					|| order.getOrderStatus() == OrderStatus.CANCELLED) {
-				return false;
-			}
-
-			order.setOrderStatus(OrderStatus.CANCELLED);
-
-			session.merge(order);
-
-			transaction.commit();
-
-			return true;
-
-		} catch (HibernateException he) {
-
-			if (transaction != null) {
-				transaction.rollback();
-			}
-
-			he.printStackTrace();
-		}
-
-		return false;
+	        order.setOrderStatus(OrderStatus.CANCELLED);
+	        session.merge(order);
+	        transaction.commit();
+	        return true;
+	    } catch (HibernateException he) {
+	        if (transaction != null) {
+	            transaction.rollback();
+	        }
+	        he.printStackTrace();
+	    }
+	    return false;
 	}
-
 	@Override
 	public Order getOrderById(Long orderId) {
 
@@ -219,39 +204,44 @@ public class OrderDAOImpl implements OrderDAO {
 	}
 
 	@Override
-	public List<Order> getOrdersByCustomerId(Long userId) {
-
+	public List<Order> getOrdersByUserId(Long userId) {
+	    Transaction transaction = null;
+	    try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+	        transaction = session.beginTransaction();
+	        String hql = """
+	                FROM Order o
+	                WHERE o.user.userId = :userId
+	                """;
+	        Query<Order> query = session.createQuery(hql, Order.class);
+	        query.setParameter("userId", userId);
+	        List<Order> orderList = query.getResultList();
+	        transaction.commit();
+	        return orderList;
+	    } catch (HibernateException he) {
+	        if (transaction != null) {
+	            transaction.rollback();
+	        }
+	        he.printStackTrace();
+	    }
+	    return null;
+	}
+    
+	public List<Order> getOrdersByStatus(OrderStatus orderStatus){
 		Transaction transaction = null;
-
-		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-
+		try(Session session = HibernateUtil.getSessionFactory().openSession()){
 			transaction = session.beginTransaction();
-
-			String hql = """
-					FROM Order o
-					WHERE o.customer.userId = :userId
-					""";
-
-			Query<Order> query = session.createQuery(hql, Order.class);
-
-			query.setParameter("userId", userId);
-
-			List<Order> orderList = query.getResultList();
-
+			String hql = "FROM Orders WHERE orderStatus = :orderStatus";
+			Query<Order> query = session.createQuery(hql,Order.class);
+			List<Order> orderList=query.getResultList();
 			transaction.commit();
-
 			return orderList;
-
-		} catch (HibernateException he) {
-
-			if (transaction != null) {
-				transaction.rollback();
-			}
-
-			he.printStackTrace();
 		}
-
+		catch(HibernateException he) {
+		      if(transaction != null) {
+		    	  transaction.rollback();
+		      }
+		      he.printStackTrace();
+		}
 		return null;
 	}
-
 }

@@ -68,14 +68,14 @@ public class Address {
 	private LocalDateTime updatedAt;
 	
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="customer_id",nullable=false)
-	private Customer customer;
+	@JoinColumn(name="user_id",nullable=false)
+	private User user;
     
     	public Address() {}
 
 		public Address(AddressType addressType, String receiverName, String city, String addressLine1,
 				String addressLine2, String phone, String state, String country, String postalCode, Boolean isDefault,
-				Customer customer) {
+				User user) {
 			super();
 			this.addressType = addressType;
 			this.receiverName = receiverName;
@@ -87,7 +87,7 @@ public class Address {
 			this.country = country;
 			this.postalCode = postalCode;
 			this.isDefault = isDefault;
-			this.customer = customer;
+			this.user = user;
 		}
 
 		public Long getAddressId() {
@@ -174,12 +174,12 @@ public class Address {
 			this.isDefault = isDefault;
 		}
 
-		public Customer getCustomer() {
-			return customer;
+		public User getUser() {
+			return user;
 		}
 
-		public void setCustomer(Customer customer) {
-			this.customer = customer;
+		public void setUser(User user) {
+			this.user = user;
 		}
 
 		@Override

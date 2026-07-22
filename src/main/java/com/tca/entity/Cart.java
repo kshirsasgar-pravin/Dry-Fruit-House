@@ -27,8 +27,8 @@ public class Cart {
 	private Long cartId;
 	
 	@OneToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name="customer_id",nullable=false)
-	private Customer customer;
+	@JoinColumn(name="user_id",nullable=false)
+	private User user;
 	
 	@OneToMany(mappedBy="cart",fetch=FetchType.LAZY)
 	private List<CartItem> cartItems;
@@ -43,9 +43,9 @@ public class Cart {
 	
 	public Cart() {}
 
-	public Cart(Customer customer, List<CartItem> cartItems, LocalDateTime createdAt, LocalDateTime updatedAt) {
+	public Cart(User user, List<CartItem> cartItems, LocalDateTime createdAt, LocalDateTime updatedAt) {
 		super();
-		this.customer = customer;
+		this.user = user;
 		this.cartItems = cartItems;
 		this.createdAt = createdAt;
 		this.updatedAt = updatedAt;
@@ -57,12 +57,12 @@ public class Cart {
 		return cartId;
 	}
 
-	public Customer getCustomer() {
-		return customer;
+	public User getUser() {
+		return user;
 	}
 
-	public void setCustomer(Customer customer) {
-		this.customer = customer;
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 	public List<CartItem> getCartItems() {

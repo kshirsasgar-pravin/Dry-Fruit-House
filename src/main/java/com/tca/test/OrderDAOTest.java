@@ -3,10 +3,10 @@ package com.tca.test;
 import java.math.BigDecimal;
 import java.util.List;
 
-import com.tca.dao.impl.CustomerDAOImpl;
 import com.tca.dao.impl.OrderDAOImpl;
-import com.tca.entity.Customer;
+import com.tca.dao.impl.UserDAOImpl;
 import com.tca.entity.Order;
+import com.tca.entity.User;
 import com.tca.enums.OrderStatus;
 
 public class OrderDAOTest {
@@ -14,13 +14,13 @@ public class OrderDAOTest {
 	public void testOrder() {
 
 		OrderDAOImpl orderDAO = new OrderDAOImpl();
-		CustomerDAOImpl customerDAO = new CustomerDAOImpl();
+		UserDAOImpl userDAO = new UserDAOImpl();
 
-		// Fetch existing customer (user_id = 1)
-		Customer customer = customerDAO.getCustomerById(1L);
+		// Fetch existing user (user_id = 1)
+		User user = userDAO.getUserById(1L);
 
-		if (customer == null) {
-			System.out.println("Customer not found.");
+		if (user == null) {
+			System.out.println("User not found.");
 			return;
 		}
 
@@ -29,7 +29,7 @@ public class OrderDAOTest {
 		System.out.println("\n========== SAVE ORDER ==========");
 
 		Order order = new Order();
-		order.setCustomer(customer);
+		order.setUser(user);
 		order.setTotalAmount(new BigDecimal("1250.00"));
 		order.setOrderStatus(OrderStatus.PENDING);
 
@@ -83,12 +83,10 @@ public class OrderDAOTest {
 
 		System.out.println("\n========== GET ORDERS BY USER ID ==========");
 
-		List<Order> customerOrders = orderDAO.getOrdersByCustomerId(customer.getUserId());
-		// If you rename the DAO method later:
-		// orderDAO.getOrdersByUserId(customer.getUserId());
+		List<Order> userOrders = orderDAO.getOrdersByUserId(user.getUserId());
 
-		if (customerOrders != null && !customerOrders.isEmpty()) {
-			for (Order o : customerOrders) {
+		if (userOrders != null && !userOrders.isEmpty()) {
+			for (Order o : userOrders) {
 				System.out.println(o);
 			}
 		} else {
@@ -99,7 +97,7 @@ public class OrderDAOTest {
 
 		System.out.println("\n========== CANCEL ORDER ==========");
 
-		if (orderDAO.cancelOrder(customer.getUserId(), order.getOrderId())) {
+		if (orderDAO.cancelOrder(user.getUserId(), order.getOrderId())) {
 			System.out.println("Order cancelled successfully.");
 		} else {
 			System.out.println("Failed to cancel order.");

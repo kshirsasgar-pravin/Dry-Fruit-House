@@ -17,44 +17,32 @@ public class App {
 			// ==============================================
 			// CATEGORY DAO TEST
 			// ==============================================
-
 			// CategoryDAOTest categoryTest = new CategoryDAOTest();
-			// categoryTest.testCategory();
+			// categoryTest.saveCategoryTest();
 
 			// ==============================================
 			// PRODUCT DAO TEST
 			// ==============================================
-
 			// ProductDAOTest productTest = new ProductDAOTest();
 			// productTest.testProduct();
 
 			// USER DAO TEST
-
-			// UserDAOTest userTest = new UserDAOTest();
-			// userTest.testUser();
-
-			// CUSTOMER DAO TEST
-
-			CustomerDAOTest customerTest = new CustomerDAOTest();
-			customerTest.testCustomer();
+			UserDAOTest userTest = new UserDAOTest();
+			userTest.saveUserTest();
 
 			// ADDRESS DAO TEST
-
 			AddressDAOTest addressTest = new AddressDAOTest();
 			addressTest.testAddress();
 
-//			 CART DAO TEST
-
+			// CART DAO TEST
 			CartDAOTest cartTest = new CartDAOTest();
 			cartTest.testCart();
 
 			// ORDER DAO TEST
-
 			OrderDAOTest orderTest = new OrderDAOTest();
 			orderTest.testOrder();
 
 			// PAYMENT DAO TEST
-
 			PaymentDAOTest paymentTest = new PaymentDAOTest();
 			paymentTest.testPayment();
 
@@ -62,9 +50,7 @@ public class App {
 			System.out.println("SessionFactory Closed Successfully.");
 
 		} catch (Exception e) {
-
 			e.printStackTrace();
-
 		}
 	}
 }

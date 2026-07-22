@@ -2,22 +2,22 @@ package com.tca.dao;
 
 import java.util.List;
 
-import com.tca.entity.Customer;
+import com.tca.entity.User;
 
 public interface CustomerDAO {
       
-	boolean saveCustomer(Customer customer);
+	boolean saveCustomer(User customer);
 
-	boolean updateCustomer(Customer customer);
+	boolean updateCustomer(User customer);
 
 	boolean deleteCustomer(Long customerId);
 
-	Customer getCustomerById(Long customerId);
+	User getCustomerById(Long customerId);
 
-	Customer getCustomerByPhone(String phone);
+	User getCustomerByPhone(String phone);
 
-	List<Customer> getAllCustomers();
+	List<User> getAllCustomers();
 
-	List<Customer> getActiveCustomers();
+	List<User> getActiveCustomers();
 	
 }

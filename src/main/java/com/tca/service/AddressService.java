@@ -1,21 +1,21 @@
-package com.tca.dao;
+package com.tca.service;
 
 import java.util.List;
 import com.tca.entity.Address;
 
-public interface AddressDAO {
-  
-    boolean saveAddress(Address address);
+public interface AddressService {
+
+    boolean addAddress(Address address);
 
     boolean updateAddress(Address address);
 
     boolean deleteAddress(Long addressId);
 
     Address getAddressById(Long addressId);
-    
-    Address getDefaultAddressById(Long addressId);
-
-    List<Address> getAllAddresses();
 
     List<Address> getAddressesByUserId(Long userId);
+
+    Address getDefaultAddressByUserId(Long userId);
+
+    boolean setDefaultAddress(Long addressId, Long userId);
 }

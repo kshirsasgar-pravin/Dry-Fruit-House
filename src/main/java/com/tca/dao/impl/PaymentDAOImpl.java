@@ -227,37 +227,26 @@ public class PaymentDAOImpl implements PaymentDAO {
 	}
 
 	@Override
-	public List<Payment> getPaymentsByCustomerId(Long userId) {
-		Transaction transaction = null;
-
-		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-
-			transaction = session.beginTransaction();
-
-			String hql = """
-					FROM Payment p
-					WHERE p.order.customer.userId = :userId
-					""";
-
-			Query<Payment> query = session.createQuery(hql, Payment.class);
-
-			query.setParameter("userId", userId);
-
-			List<Payment> paymentList = query.getResultList();
-
-			transaction.commit();
-
-			return paymentList;
-
-		} catch (HibernateException he) {
-
-			if (transaction != null) {
-				transaction.rollback();
-			}
-
-			he.printStackTrace();
-		}
-		return null;
+	public List<Payment> getPaymentsByUserId(Long userId) {
+	    Transaction transaction = null;
+	    try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+	        transaction = session.beginTransaction();
+	        String hql = """
+	                FROM Payment p
+	                WHERE p.order.user.userId = :userId
+	                """;
+	        Query<Payment> query = session.createQuery(hql, Payment.class);
+	        query.setParameter("userId", userId);
+	        List<Payment> paymentList = query.getResultList();
+	        transaction.commit();
+	        return paymentList;
+	    } catch (HibernateException he) {
+	        if (transaction != null) {
+	            transaction.rollback();
+	        }
+	        he.printStackTrace();
+	    }
+	    return null;
 	}
 
 }

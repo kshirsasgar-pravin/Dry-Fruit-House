@@ -1,23 +1,11 @@
 package com.tca.entity;
 
 import java.time.LocalDateTime;
-
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
-
 import com.tca.enums.AuthProvider;
 import com.tca.enums.UserRole;
-
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Inheritance;
-import jakarta.persistence.InheritanceType;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "users")
@@ -29,13 +17,17 @@ public class User {
 	@Column(name = "user_id")
 	private Long userId;
 
-	@Column(name = "email", nullable = false, unique = true, length = 150)
+	// Added name field since Customer is removed
+	@Column(name = "name", length = 100)
+	private String name;
+
+	@Column(name = "email", unique = true, length = 150)
 	private String email;
 
 	@Column(name = "password")
 	private String password;
 
-	@Column(name="phone", nullable = false, length=10)
+	@Column(name = "phone", nullable = false, length = 10)
 	private String phone;
 	
 	@Enumerated(EnumType.STRING)
@@ -63,20 +55,27 @@ public class User {
 	@Column(name = "updated_at", nullable = false)
 	private LocalDateTime updatedAt;
 
-	public User() {
-	}
+	public User() {}
 
-	public User(String email, String password, String phone, UserRole userRole, AuthProvider authProvider, String providerUserId,
-			Boolean isVerified, Boolean isActive) {
-
+	public User(String name, String email, String password, String phone, UserRole userRole, AuthProvider authProvider, String providerUserId, Boolean isVerified, Boolean isActive) {
+		this.name = name;
 		this.email = email;
 		this.password = password;
-        this.phone=phone;
+		this.phone = phone;
 		this.userRole = userRole;
 		this.authProvider = authProvider;
 		this.providerUserId = providerUserId;
 		this.isVerified = isVerified;
 		this.isActive = isActive;
+	}
+
+	// Getter and Setter for name
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public Long getUserId() {
@@ -95,8 +94,6 @@ public class User {
 		this.email = email;
 	}
 
-	
-	
 	public String getPhone() {
 		return phone;
 	}
@@ -159,16 +156,5 @@ public class User {
 
 	public LocalDateTime getUpdatedAt() {
 		return updatedAt;
-	}
-
-	@Override
-	public String toString() {
-		return "User [userId=" + userId +
-				", email=" + email +
-				", userRole=" + userRole +
-				", phone="+ phone +
-				", authProvider=" + authProvider + 
-				", isVerified=" + isVerified +
-				", isActive="+ isActive + "]";
 	}
 }

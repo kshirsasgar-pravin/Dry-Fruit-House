@@ -3,12 +3,12 @@ package com.tca.test;
 import java.math.BigDecimal;
 import java.util.List;
 
-import com.tca.dao.impl.CustomerDAOImpl;
 import com.tca.dao.impl.OrderDAOImpl;
 import com.tca.dao.impl.PaymentDAOImpl;
-import com.tca.entity.Customer;
+import com.tca.dao.impl.UserDAOImpl;
 import com.tca.entity.Order;
 import com.tca.entity.Payment;
+import com.tca.entity.User;
 import com.tca.enums.OrderStatus;
 import com.tca.enums.PaymentMode;
 import com.tca.enums.PaymentStatus;
@@ -17,22 +17,22 @@ public class PaymentDAOTest {
 
 	public void testPayment() {
 
-		CustomerDAOImpl customerDAO = new CustomerDAOImpl();
+		UserDAOImpl userDAO = new UserDAOImpl();
 		OrderDAOImpl orderDAO = new OrderDAOImpl();
 		PaymentDAOImpl paymentDAO = new PaymentDAOImpl();
 
-		// Fetch existing customer
-		Customer customer = customerDAO.getCustomerById(1L);
+		// Fetch existing user
+		User user = userDAO.getUserById(1L);
 
-		if (customer == null) {
-			System.out.println("Customer not found.");
+		if (user == null) {
+			System.out.println("User not found.");
 			return;
 		}
 
 		// ================= CREATE ORDER =================
 
 		Order order = new Order();
-		order.setCustomer(customer);
+		order.setUser(user);
 		order.setTotalAmount(new BigDecimal("1500.00"));
 		order.setOrderStatus(OrderStatus.CONFIRMED);
 
@@ -50,12 +50,7 @@ public class PaymentDAOTest {
 		payment.setOrder(order);
 		payment.setPaymentMode(PaymentMode.UPI);
 		payment.setPaymentStatus(PaymentStatus.SUCCESS);
-
-		// If you rename the methods:
-		// payment.setAmount(...);
-
 		payment.setPayAmount(new BigDecimal("1500.00"));
-
 		payment.setTransactionId("TXN123456789");
 		payment.setPaymentGateway("Razorpay");
 
@@ -132,11 +127,10 @@ public class PaymentDAOTest {
 
 		System.out.println("\n========== GET PAYMENTS BY USER ID ==========");
 
-		List<Payment> customerPayments =
-				paymentDAO.getPaymentsByCustomerId(customer.getUserId());
+		List<Payment> userPayments = paymentDAO.getPaymentsByUserId(user.getUserId());
 
-		if (customerPayments != null && !customerPayments.isEmpty()) {
-			for (Payment p : customerPayments) {
+		if (userPayments != null && !userPayments.isEmpty()) {
+			for (Payment p : userPayments) {
 				System.out.println(p);
 			}
 		} else {
@@ -157,4 +151,4 @@ public class PaymentDAOTest {
 
 		orderDAO.deleteOrder(order.getOrderId());
 	}
-} 
+}

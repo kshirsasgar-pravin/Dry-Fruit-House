@@ -4,13 +4,16 @@ import com.tca.entity.Cart;
 
 public interface CartDAO {
         
-	boolean saveCart(Cart cart);
+    boolean saveCart(Cart cart);
 
     boolean updateCart(Cart cart);
 
     boolean deleteCart(Long cartId);
 
+    
+    
     Cart getCartById(Long cartId);
 
-    Cart getCartByCustomerId(Long customerId);
+    Cart getCartByUserId(Long userId);
+    
 }

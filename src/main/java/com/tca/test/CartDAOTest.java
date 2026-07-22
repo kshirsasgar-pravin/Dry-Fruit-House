@@ -1,22 +1,22 @@
 package com.tca.test;
 
 import com.tca.dao.impl.CartDAOImpl;
-import com.tca.dao.impl.CustomerDAOImpl;
+import com.tca.dao.impl.UserDAOImpl;
 import com.tca.entity.Cart;
-import com.tca.entity.Customer;
+import com.tca.entity.User;
 
 public class CartDAOTest {
 
 	public void testCart() {
 
 		CartDAOImpl cartDAO = new CartDAOImpl();
-		CustomerDAOImpl customerDAO = new CustomerDAOImpl();
+		UserDAOImpl userDAO = new UserDAOImpl();
 
-		// Fetch existing customer (user_id = 1)
-		Customer customer = customerDAO.getCustomerById(1L);
+		// Fetch existing user (user_id = 1)
+		User user = userDAO.getUserById(1L);
 
-		if (customer == null) {
-			System.out.println("Customer not found.");
+		if (user == null) {
+			System.out.println("User not found.");
 			return;
 		}
 
@@ -25,7 +25,7 @@ public class CartDAOTest {
 		System.out.println("\n========== SAVE CART ==========");
 
 		Cart cart = new Cart();
-		cart.setCustomer(customer);
+		cart.setUser(user);
 
 		if (cartDAO.saveCart(cart)) {
 			System.out.println("Cart saved successfully.");
@@ -38,8 +38,6 @@ public class CartDAOTest {
 
 		System.out.println("\n========== UPDATE CART ==========");
 
-		// No editable fields are present in Cart.
-		// Calling update only to verify merge() works.
 		if (cartDAO.updateCart(cart)) {
 			System.out.println("Cart updated successfully.");
 		} else {
@@ -62,12 +60,10 @@ public class CartDAOTest {
 
 		System.out.println("\n========== GET CART BY USER ID ==========");
 
-		Cart customerCart = cartDAO.getCartByCustomerId(customer.getUserId());
-		// If you renamed the method:
-		// Cart customerCart = cartDAO.getCartByUserId(customer.getUserId());
+		Cart userCart = cartDAO.getCartByUserId(user.getUserId());
 
-		if (customerCart != null) {
-			System.out.println(customerCart);
+		if (userCart != null) {
+			System.out.println(userCart);
 		} else {
 			System.out.println("Cart not found.");
 		}
