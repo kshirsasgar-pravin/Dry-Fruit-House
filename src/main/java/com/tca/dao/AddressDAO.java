@@ -13,7 +13,7 @@ public interface AddressDAO {
 
     Address getAddressById(Long addressId);
     
-    Address getDefaultAddressById(Long addressId);
+    Address getDefaultAddressByUserId(Long userId);
 
     List<Address> getAllAddresses();
 

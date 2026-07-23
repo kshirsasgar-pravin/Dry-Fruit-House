@@ -34,12 +34,9 @@ public class OrderServiceImpl implements OrderService {
 			return false;
 		}
 
-		// 1. Validate stock availability for all items
 
 		for (OrderItem item : order.getOrderItems()) {
-			Product orderedProduct = item.getProduct();
-			long id = orderedProduct.getProductId();
-			Product product = productDAO.getProductById(id);
+			Product product = productDAO.getProductById(item.getProduct().getProductId());
 
 			if (product == null) {
 				System.out.println("Order Failed With Product id " + product.getProductId());
@@ -63,6 +60,7 @@ public class OrderServiceImpl implements OrderService {
 			long id = orderedProduct.getProductId();
 			Product product = productDAO.getProductById(id);
 			product.setStockQuantity(product.getStockQuantity() - item.getQuantity());
+			
 			if (!productDAO.updateProduct(product)) {
 				System.out.println("Failed to update Quantity for product " + product.getProductName());
 				continue;

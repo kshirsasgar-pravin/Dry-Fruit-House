@@ -20,4 +20,6 @@ public interface PaymentDAO {
     List<Payment> getAllPayments();
 
     List<Payment> getPaymentsByUserId(Long userId);
+    
+   
 }
