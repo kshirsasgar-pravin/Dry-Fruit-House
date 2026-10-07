@@ -1,49 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!DOCTYPE hibernate-configuration PUBLIC
-        "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
-        "https://hibernate.org/dtd/hibernate-configuration-3.0.dtd">
-
-<hibernate-configuration>
+<hibernate-configuration xmlns="http://www.hibernate.org/xsd/orm/cfg">
 
 	<session-factory>
 
 		<!-- Database Connection -->
+		<property name="hibernate.connection.driver_class">
+			org.postgresql.Driver
+		</property>
 
-		<property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
+		<property name="hibernate.connection.url">
+			jdbc:postgresql://localhost:5432/dryfruit_db
+		</property>
 
-		<property name="hibernate.connection.url">jdbc:postgresql://localhost:5432/dryfruit_db</property>
+		<property name="hibernate.connection.username">
+			postgres
+		</property>
 
-		<property name="hibernate.connection.username">postgres</property>
+		<property name="hibernate.connection.password">
+			root
+		</property>
 
-		<property name="hibernate.connection.password">root</property>
-
-		<!-- SQL Dialect (Auto-detected in Hibernate 6+) -->
-
-		<!-- <property name="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</property> -->
-
-		<!-- SQL Output -->
-
+		<!-- SQL -->
 		<property name="hibernate.show_sql">false</property>
 		<property name="hibernate.format_sql">true</property>
 		<property name="hibernate.highlight_sql">true</property>
 
-		<!-- Schema Generation -->
-
+		<!-- Schema -->
 		<property name="hibernate.hbm2ddl.auto">create</property>
 
-		<!-- Entity Classes -->
-
-		<mapping class="com.tca.entity.User" />
-		<mapping class="com.tca.entity.Product" />
-		<mapping class="com.tca.entity.Category" />
-		<mapping class="com.tca.entity.Order" />
-		<mapping class="com.tca.entity.OrderItem" />
-		<mapping class="com.tca.entity.Cart" />
-		<mapping class="com.tca.entity.CartItem" />
-		<mapping class="com.tca.entity.Address" />
-		<mapping class="com.tca.entity.Admin" />
-		<mapping class="com.tca.entity.Payment"/>
+		<!-- Entity Mappings -->
+		<mapping class="com.DryFruitHouse.entity.User"/>
+		<mapping class="com.DryFruitHouse.entity.Category"/>
+		<mapping class="com.DryFruitHouse.entity.Product"/>
+		<mapping class="com.DryFruitHouse.entity.Address"/>
+		<mapping class="com.DryFruitHouse.entity.Cart"/>
+		<mapping class="com.DryFruitHouse.entity.CartItem"/>
+		<mapping class="com.DryFruitHouse.entity.Order"/>
+		<mapping class="com.DryFruitHouse.entity.OrderItem"/>
+		<mapping class="com.DryFruitHouse.entity.Payment"/>
 
 	</session-factory>
 
